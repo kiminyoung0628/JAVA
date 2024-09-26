@@ -1,7 +1,7 @@
 package jpabook.jpashop.service;
 
 import jpabook.jpashop.domain.Member;
-import jpabook.jpashop.repository.MemberRepository;
+import jpabook.jpashop.repository.MemberRepositoryOld;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +17,8 @@ import static org.junit.jupiter.api.Assertions.fail;
 @Transactional //이게 있어야 롤백이 된다.
 public class MemberServiceTest {
     @Autowired MemberService memberService;
-    @Autowired MemberRepository memberRepository;
+    @Autowired
+    MemberRepositoryOld memberRepositoryOld;
 
     @Test
     public void 회원가입() throws Exception{
@@ -29,7 +30,7 @@ public class MemberServiceTest {
         Long saveId = memberService.join(member);
 
         //Then
-        assertEquals(member, memberRepository.findOne(saveId));
+        assertEquals(member, memberRepositoryOld.findOne(saveId));
     }
 
     @Test(expected = IllegalStateException.class)
